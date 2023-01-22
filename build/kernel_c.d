@@ -1,1 +1,1 @@
-build/kernel_c.o: src/kernel.c include/mini_uart.h include/utils.h
+build/kernel_c.o: src/kernel.c include/pl011_uart.h include/utils.h

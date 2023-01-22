@@ -1,4 +1,4 @@
-#include "mini_uart.h"
+#include "pl011_uart.h"
 #include "utils.h"
 
 void kernel_main(unsigned long processor_index)
@@ -7,8 +7,8 @@ void kernel_main(unsigned long processor_index)
 
 	if (processor_index == 0) 
 	{
-		uart_init();
-		uart_send_string("\r\nInit UART ");
+		pl011_uart_init();
+		pl011_uart_send_string("\r\nInit UART4 PL011 ");
 	}
 
 	while (processor_index != current_processor_index)
@@ -16,10 +16,10 @@ void kernel_main(unsigned long processor_index)
 		delay(50);
 	}
 
-	uart_send_string("\r\n");
-	uart_send_string("Hello du processor ");
-	uart_send_int(processor_index);
-	uart_send_string("!\r\n");
+	pl011_uart_send_string("\r\n");
+	pl011_uart_send_string("Hello du processor ");
+	pl011_uart_send_int(processor_index);
+	pl011_uart_send_string("!\r\n");
 
 	current_processor_index++;
 
@@ -27,8 +27,8 @@ void kernel_main(unsigned long processor_index)
 	while (current_processor_index != 3);
 	while(1) 
 	{
-		char r =uart_recv();
-		if(r=='\n' || r=='\r') uart_send_string("\r\n");
-		else uart_send(r);
+		char r =pl011_uart_recv();
+		if(r=='\n' || r=='\r') pl011_uart_send_string("\r\n");
+		else pl011_uart_send(r);
 	}
 }
