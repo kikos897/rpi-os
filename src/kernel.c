@@ -1,5 +1,12 @@
 #include "pl011_uart.h"
 #include "utils.h"
+#include "printf.h"
+
+void putc(void *p, char c)
+{
+
+	pl011_uart_send(c);
+}
 
 void kernel_main(unsigned long processor_index)
 {
@@ -8,7 +15,8 @@ void kernel_main(unsigned long processor_index)
 	if (processor_index == 0) 
 	{
 		pl011_uart_init();
-		pl011_uart_send_string("\r\nInit UART4 PL011 ");
+		init_printf(0,putc);
+		printf("\r\nInit UART4 PL011 ");
 	}
 
 	while (processor_index != current_processor_index)
@@ -16,10 +24,7 @@ void kernel_main(unsigned long processor_index)
 		delay(50);
 	}
 
-	pl011_uart_send_string("\r\n");
-	pl011_uart_send_string("Hello du processor ");
-	pl011_uart_send_int(processor_index);
-	pl011_uart_send_string("!\r\n");
+	printf("\r\nHello du processor %d\r\n",processor_index);
 
 	current_processor_index++;
 

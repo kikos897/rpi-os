@@ -1,6 +1,6 @@
 ARMGNU ?= aarch64-linux-gnu
 
-COPS = -std=gnu11 -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles -Iinclude -mgeneral-regs-only
+COPS = -std=gnu11 -Wall -O2 -ffreestanding  -nostdlib -nostartfiles -Iinclude -mgeneral-regs-only
 ASMOPS = -Iinclude 
 
 BUILD_DIR = build
