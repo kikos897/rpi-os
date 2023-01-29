@@ -17,6 +17,7 @@ void kernel_main(unsigned long processor_index)
 		pl011_uart_init();
 		init_printf(0,putc);
 		printf("\r\nInit UART4 PL011 ");
+		printf("\r\nRunning at level EL%d",get_el());
 	}
 
 	while (processor_index != current_processor_index)
@@ -33,7 +34,7 @@ void kernel_main(unsigned long processor_index)
 	while(1) 
 	{
 		char r =pl011_uart_recv();
-		if(r=='\n' || r=='\r') pl011_uart_send_string("\r\n");
-		else pl011_uart_send(r);
+		if(r=='\n' || r=='\r') printf("\r\n");
+		else printf("%c",r);
 	}
 }

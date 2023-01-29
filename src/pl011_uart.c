@@ -51,4 +51,3 @@ void pl011_uart_send_string(char* str)
 		pl011_uart_send((char)str[i]);
 	}
 }
-
