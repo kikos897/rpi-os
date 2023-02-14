@@ -8,7 +8,7 @@ void putc(void *p, char c)
 	pl011_uart_send(c);
 }
 
-void kernel_main(unsigned long processor_index)
+void kernel_el2(unsigned long processor_index)
 {
 	static unsigned int current_processor_index = 0;
 
@@ -19,6 +19,13 @@ void kernel_main(unsigned long processor_index)
 		printf("\r\nInit UART4 PL011 ");
 		printf("\r\nRunning at level EL%d",get_el());
 	}
+}
+
+void kernel_main(unsigned long processor_index)
+{
+	static unsigned int current_processor_index = 0;
+
+	printf("\r\nRunning at level EL%d",get_el());
 
 	while (processor_index != current_processor_index)
 	{

@@ -3,6 +3,7 @@
 
 // ***************************************
 // SCTLR_EL1, System Control Register (EL1), Page 2654 of AArch64-Reference-Manual.
+// SCTLR_EL2 has same values, Page 2665
 // ***************************************
 #define SCTLR_RESERVED			(3<<28)|(3<<22)|(1<<20)|(1<<11) //RESERVED BITS SHOULD BE INIT AT 1
 #define SCTLR_EE_LITTLE_ENDIAN		(0<<25)				//LITTLE ENDIAN FOR EL1
@@ -27,10 +28,13 @@
 #define SCR_VALUE			(SCR_RESERVED | SCR_RW | SCR_NS)//SET THE SCR VALUE
 
 // ***************************************
+// SPSR_EL2, Saved Program Status Register (EL3) Page 383 of AArch64-Reference-Manual.
 // SPSR_EL3, Saved Program Status Register (EL3) Page 389 of AArch64-Reference-Manual.
 // ***************************************
 #define	SPSR_MASK_ALL			(7<<6)				//ALL INTERRUPTS WILL BE DISABLED
 #define	SPSR_EL1H			(5<<0)				//WE USE EL1H THAT HAS DEDICATED STACK POINTER
-#define	SPSR_VALUE			(SPSR_MASK_ALL | SPSR_EL1H)	//SET THE SPSR VALUE
+#define	SPSR_EL2H			(9<<0)				//WE USE EL2H THAT HAS DEDICATED STACK POINTER
+#define	SPSR_VALUE_EL2			(SPSR_MASK_ALL | SPSR_EL1H)	//SET THE SPSR VALUE FROM EL2 TO EL1
+#define	SPSR_VALUE_EL3			(SPSR_MASK_ALL | SPSR_EL2H)	//SET THE SPSR VALUE FROM EL3 TO EL2
 
 #endif
