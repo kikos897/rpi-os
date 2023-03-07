@@ -1,6 +1,8 @@
 #include "pl011_uart.h"
 #include "utils.h"
 #include "printf.h"
+#include "timer.h"
+#include "irq.h"
 
 void putc(void *p, char c)
 {
@@ -38,6 +40,12 @@ void kernel_main(unsigned long processor_index)
 
 	// if current_processor_index == 4 then all processors send message
 	while (current_processor_index != 3);
+
+	irq_vector_init();
+	timer_init();
+	enable_interrupt_controller();
+	enable_irq();
+
 	while(1) 
 	{
 		char r =pl011_uart_recv();
