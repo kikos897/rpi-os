@@ -15,7 +15,9 @@ void kernel_el3()
 	pl011_uart_init();
 	init_printf(0,putc);
 	printf("\r\nInit UART4 PL011 ");
-	printf("\r\nRunning at level EL%d",get_el());
+	printf("\r\nRunning at level EL%d\r\n",get_el());
+	
+	
 }
 
 void kernel_el2()
@@ -29,6 +31,8 @@ void kernel_main(unsigned long processor_index)
 
 	printf("\r\nRunning at level EL%d",get_el());
 
+
+
 	while (processor_index != current_processor_index)
 	{
 		delay(50);
@@ -36,15 +40,16 @@ void kernel_main(unsigned long processor_index)
 
 	printf("\r\nHello du processor %d\r\n",processor_index);
 
-	current_processor_index++;
+	//current_processor_index++;
 
 	// if current_processor_index == 4 then all processors send message
-	while (current_processor_index != 3);
+	//while (current_processor_index != 3);
 
-	irq_vector_init();
 	timer_init();
+	irq_vector_init();
 	enable_interrupt_controller();
 	enable_irq();
+
 
 	while(1) 
 	{

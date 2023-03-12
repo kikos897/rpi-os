@@ -9,7 +9,7 @@
 	.endm
 
 	.macro ventry label
-		.align 	7
+	.align 	7
 		b 	\label
 	.endm
 
@@ -23,14 +23,14 @@
 		stp 	x10,x11, [sp, #16 * 5]
 		stp 	x12,x13, [sp, #16 * 6]
 		stp 	x14,x15, [sp, #16 * 7]
-		stp 	x16,x17, [sp, #16 * 7]
+		stp 	x16,x17, [sp, #16 * 8]
 		stp 	x18,x19, [sp, #16 * 9]
 		stp 	x20,x21, [sp, #16 * 10]
 		stp 	x22,x23, [sp, #16 * 11]
 		stp 	x24,x25, [sp, #16 * 12]
 		stp 	x26,x27, [sp, #16 * 13]
 		stp 	x28,x29, [sp, #16 * 14]
-		str	x30, [sp,16 * 15]
+		str	x30, [sp,#16 * 15]
 	.endm
 
 	.macro kernel_exit
@@ -42,13 +42,14 @@
 		ldp 	x10,x11, [sp, #16 * 5]
 		ldp 	x12,x13, [sp, #16 * 6]
 		ldp 	x14,x15, [sp, #16 * 7]
-		ldp 	x16,x17, [sp, #16 * 7]
+		ldp 	x16,x17, [sp, #16 * 8]
 		ldp 	x18,x19, [sp, #16 * 9]
 		ldp 	x20,x21, [sp, #16 * 10]
 		ldp 	x22,x23, [sp, #16 * 11]
 		ldp 	x24,x25, [sp, #16 * 12]
 		ldp 	x26,x27, [sp, #16 * 13]
 		ldp 	x28,x29, [sp, #16 * 14]
+		ldr	x30,	 [sp,#16 * 15]
 		add	sp, sp, #S_FRAME_SIZE
 		eret
 	.endm
@@ -80,10 +81,14 @@ vectors:
 	ventry	fiq_invalid_el0_32
 	ventry	error_invalid_el0_32
 
+
+
 el1_irq:
 	kernel_entry
-	b	handle_irq
+	bl	handle_irq
 	kernel_exit
+
+
 
 sync_invalid_el1t:
 	handle_invalid_entry	SYNC_INVALID_EL1t

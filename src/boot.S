@@ -11,11 +11,9 @@ _start:
 	mrs	x0, mpidr_el1
 	and	x0, x0, #0x3
 	cbz	x0, init_bss
-	/* If processor id is not 0 then pending lock processor
-	 * (wait for `sev` instruction)
-	 */
-	wfe
-	b	master
+	/* If processor id is not 0 then infinit loop
+	 * 
+	 */	
 
 proc_hang:
 	b 	proc_hang
@@ -64,24 +62,7 @@ el2_entry:
 	
 	
 el1_entry:
-	sev
-	mov 	x0, #0
-	adr 	x0, coproc_el1
-
-	mov 	x1, #0xe0
-	str 	x0, [x1]
-	mov 	x1, #0xe8
-	str 	x0, [x1]	
-	mov 	x1, #0xf0
-	str 	x0, [x1]
-	
 	b master
-
-coproc_el1:
-	adr	x0,master
-	msr	elr_el3,x0
-	eret
-
 
 master:
 
