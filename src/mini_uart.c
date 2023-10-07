@@ -24,7 +24,7 @@ void uart_init ( void )
 
 	put32(AUX_ENABLES,1);                   //Enable mini uart (this also enables access to its registers)
 	put32(AUX_MU_CNTL_REG,0);               //Disable auto flow control and disable receiver and transmitter (for now)
-	put32(AUX_MU_IER_REG,0);                //Disable receive and transmit interrupts
+	put32(AUX_MU_IER_REG,2);                //Enable receive and transmit interrupts
 	put32(AUX_MU_LCR_REG,3);                //Enable 8 bit mode
 	put32(AUX_MU_MCR_REG,0);                //Set RTS line to be always high
 	put32(AUX_MU_BAUD_REG,baudrate_reg);             //Set baud rate to 115200
