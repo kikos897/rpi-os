@@ -35,26 +35,19 @@ void show_invalid_entry_message(int type, unsigned long esr, unsigned long addre
 
 void enable_interrupt_controller()
 {
-	//printf("\r\nlaaaaaaaa Controller\r\n");
 	put32(IRQ0_SET_EN_0,SYSTEM_TIMER_IRQ_1);
-	//printf("\r\n EN0:%x , TIMER1: %x  \r\n",IRQ0_SET_EN_1,SYSTEM_TIMER_IRQ_1);
-	//printf("\r\n PENDING 0: %x  \r\n",(get32(IRQ0_PENDING_0)));
 }
 
 void handle_irq()
 {
 	unsigned int irq = get32(IRQ0_PENDING_0);
-	//printf("\r\nlaaaaaaaa A\r\n");
 	while(irq)
 	{
 		if(irq & SYSTEM_TIMER_IRQ_1)
 		{
-			//printf("\r\nlaaaaaaaa B\r\n");
-			irq&=~SYSTEM_TIMER_IRQ_2;
+			irq&=~SYSTEM_TIMER_IRQ_1;
 			handle_timer_irq();
 		}
-		
 		else	printf("Unknown pending irq: %x\r\n",irq);
-
 	}
 }
