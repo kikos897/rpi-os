@@ -23,4 +23,10 @@
 
 #define S_FRAME_SIZE		256
 
+#ifndef __ASSEMBLER__
+
+void ret_from_fork(void);
+
+#endif
+
 #endif
