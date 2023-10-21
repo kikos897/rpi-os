@@ -13,7 +13,7 @@ int copy_process(unsigned long fn,unsigned long arg)
 	p=(struct task_struct *) get_free_page();
 	if(!p) return 1;
 	printf("\r\nLAAAAAAAAAAAAAAAAAA\r\n");
-	p->priority=1;
+	p->priority=current->priority;
 	printf("\r\nLAAAAAAAAAAAAAAAAAA\r\n");
 	p->state =TASK_RUNNING;
 	p->counter=p->priority;
